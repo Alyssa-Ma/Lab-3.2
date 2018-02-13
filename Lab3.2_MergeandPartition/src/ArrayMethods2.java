@@ -38,32 +38,92 @@ public class ArrayMethods2
 	public static String[] merge(String[] list1, String[] list2)
 	{
 		//precondition: both lists are sorted.
-		int x;
-		int y;
-		int z;
+		int x = 0;
+		int y = 0;
+		int z = 0;
 		
-		int midpt = list1;
-
+		String[] fin = new String[list1.length + list2.length];
+		
+		//if both lists are still not finished sorting
+		while((x < list1.length) && (y < list2.length))
+		{
+			if(list1[x].compareTo(list2[y]) > 0)
+			{
+				fin[z] = list2[y];
+				
+				y++;
+				z++;
+			}
+			else if(list2[y].compareTo(list1[x]) > 0)
+			{
+				fin[z] = list1[x];
+				
+				x++;
+				z++;
+			}
+		}
+		//keep track of the array
+		while(x < list1.length)
+		{
+			fin[z] = list1[x];
+			
+			x++;
+			z++;
+		}
+		while(y < list2.length)
+		{
+			fin[z] = list2[x];
+			
+			y++;
+			z++;
+		}
+		return fin;
 	}
 
 
 	public static int partition(int[] list)
 	{
-		int x;
-		int y;
-		int piv = list[x];
+		int x = 0;
+		int y = list.length - 1;
+		int z = 0;
+		int aa = 0;
 		
-		while(x >1)
+		while(x != y)
 		{
-			
+			//two sides of array
+			if(list[x] > list[y] && (x < y))
+			{
+				swap(list, x, y);
+				
+				z = x;
+				x = y;
+				y = z + 1;
+			}
+			else if((list[x] < list[y]) && (x > y))
+			{
+				swap(list, x, y);
+				
+				z = x;
+				x = y;
+				y = z - 1;
+			}
+			else if(x > y)
+			{
+				y++;
+			}
+			else if(x < y)
+			{
+				y--;
+			}
 		}
-		
-		
-
+		return x;
 	}
 	
-	public static int swap(int[] list)
+	//helper method to swap items
+	public static void swap(int[] list, int in, int in2)
 	{
-		list[] = 
+		int n = list[in];
+		list[in] = list[in2];
+		list[in2] = n;
 	}
 }
